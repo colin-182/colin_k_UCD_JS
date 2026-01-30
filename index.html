@@ -36,6 +36,9 @@
          <section id="log-workout" class="section-log">
             <h2>Log a Workout</h2>
 
+            <!-- Feedback message to be done with JS -->
+             <div id="form-messages" class="form-messages" aria-live="polite"></div>
+
             <form id="workout-form" novalidate>
                 <div class="form-row">
                     <label for="workout-date">Date<span class="required">*</span></label>
@@ -79,6 +82,12 @@
                 <button type="submit" class="primary-btn">Save Workout</button>
             </form>
          </section>
+
+         <!-- Workout history section -->
+          <section id="history" class="section-history">
+            <h2>Previous Workouts</h2>
+            
+          </section>
      </main>
 </body>
 </html>
