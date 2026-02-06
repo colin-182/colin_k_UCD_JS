@@ -205,3 +205,13 @@ th {
     border-bottom: 1px solid rgba(148, 163, 184, 0.3);
 }
 
+/* Delete button */
+.delete-btn {
+    background: rgba(15, 23, 42, 0.9);
+    color: #fecaca;
+    border: 1px solid #e42e09;
+}
+
+.delete-btn:hover {
+    background: rgb(135, 2, 2)
+}
