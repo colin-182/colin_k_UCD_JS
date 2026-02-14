@@ -3,30 +3,30 @@ let workouts = [];
 let weeklyGoal = 3;
 
 // DOM elements
-const getStartedBtn = document.getElementById('get-started-btn');
+const getStartedBtn = documents.getElementById('get-started-btn');
 
-const workoutForm = document.getElementById('workout-form');
-const formMessages = document.getElementById('form-messages');
+const workoutForm = documents.getElementById('workout-form');
+const formMessages = documents.getElementById('form-messages');
 
-const dateInput = document.getElementById('workout-date');
-const typeInput = document.getElementById('workout-type');
-const durationInput = document.getElementById('duration');
-const intensityInput = document.getElementById('intensity');
-const notesInput = document.getElementById('notes');
+const dateInput = documents.getElementById('workout-date');
+const typeInput = documents.getElementById('workout-type');
+const durationInput = documents.getElementById('duration');
+const intensityInput = documents.getElementById('intensity');
+const notesInput = documents.getElementById('notes');
 
-const dateError = document.getElementById('date-error');
-const typeError = document.getElementById('type-error');
-const durationError = document.getElementById('duration-error');
+const dateError = documents.getElementById('date-error');
+const typeError = documents.getElementById('type-error');
+const durationError = documents.getElementById('duration-error');
 
-const historyBody = document.getElementById('history-body');
-const filterButtons = document.getElementById('.filter-btn');
+const historyBody = documents.getElementById('history-body');
+const filterButtons = documents.getElementById('.filter-btn');
 
-const totalWorkoutsEl = document.getElementById('total-workouts');
-const totalMinutesEl = document.getElementById('total-minutes');
+const totalWorkoutsEl = documents.getElementById('total-workouts');
+const totalMinutesEl = documents.getElementById('total-minutes');
 const weeklyWorkoutsEl = documents.getElementById('weekly-workouts');
 
-const weeklyGoalInput = document.getElementById('weekly-goal');
-const saveGoalBtn = document.getElementById('save-goal-btn');
+const weeklyGoalInput = documents.getElementById('weekly-goal');
+const saveGoalBtn = documents.getElementById('save-goal-btn');
 
 // clearing forms & validations
 function clearFormErrors() {
@@ -53,11 +53,12 @@ function isValidDate(value) {
 }
 
 function getWeekStart(date) {
-    const d = new Date(date);
-    const day = d.getDay();
-    const weekStart = new Date(d.setDate(diff));
-    weekStart.setHours(0, 0, 0, 0);
-    return weekStart;
+  const d = new Date(date);
+  const day = d.getDay();       
+  const diff = d.getDate() - day;
+  const weekStart = new Date(d.setDate(diff));
+  weekStart.setHours(0, 0, 0, 0);
+  return weekStart;
 }
 
 // form validation
