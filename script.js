@@ -41,3 +41,14 @@ function showFormMessage(message, type = 'error') {
   formMessages.textContent = message;
   formMessages.className = `form-messages ${type}`;
 }
+
+function isValidDate(value) {
+    if (!value) return false;
+    const inputDate = new Date(value);
+    if (Number.isNaN(inputDate.getTime())) return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return inputDate <= today;
+}
+
