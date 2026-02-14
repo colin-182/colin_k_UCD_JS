@@ -172,3 +172,21 @@ function updateStatsAndProgress() {
   progressBarInner.style.width = `${percent}%`;
   progressText.textContent = `${percent}%`;
 }
+
+// Filtering
+function setActiveFilterButton(targetBtn) {
+  filterButtons.forEach(btn => btn.classList.remove('active'));
+  targetBtn.classList.add('active');
+}
+
+function applyFilter(filter) {
+  const rows = historyBody.querySelectorAll('tr');
+  rows.forEach(row => {
+    const type = row.dataset.type;
+    if (filter === 'all' || filter === type) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+}
