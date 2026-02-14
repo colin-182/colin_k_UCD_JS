@@ -3,30 +3,30 @@ let workouts = [];
 let weeklyGoal = 3;
 
 // DOM elements
-const getStartedBtn = documents.getElementById('get-started-btn');
+const getStartedBtn = document.getElementById('get-started-btn');
 
-const workoutForm = documents.getElementById('workout-form');
-const formMessages = documents.getElementById('form-messages');
+const workoutForm = document.getElementById('workout-form');
+const formMessages = document.getElementById('form-messages');
 
-const dateInput = documents.getElementById('workout-date');
-const typeInput = documents.getElementById('workout-type');
-const durationInput = documents.getElementById('duration');
-const intensityInput = documents.getElementById('intensity');
-const notesInput = documents.getElementById('notes');
+const dateInput = document.getElementById('workout-date');
+const typeInput = document.getElementById('workout-type');
+const durationInput = document.getElementById('duration');
+const intensityInput = document.getElementById('intensity');
+const notesInput = document.getElementById('notes');
 
-const dateError = documents.getElementById('date-error');
-const typeError = documents.getElementById('type-error');
-const durationError = documents.getElementById('duration-error');
+const dateError = document.getElementById('date-error');
+const typeError = document.getElementById('type-error');
+const durationError = document.getElementById('duration-error');
 
-const historyBody = documents.getElementById('history-body');
-const filterButtons = documents.getElementById('.filter-btn');
+const historyBody = document.getElementById('history-body');
+const filterButtons = document.getElementById('.filter-btn');
 
-const totalWorkoutsEl = documents.getElementById('total-workouts');
-const totalMinutesEl = documents.getElementById('total-minutes');
-const weeklyWorkoutsEl = documents.getElementById('weekly-workouts');
+const totalWorkoutsEl = document.getElementById('total-workouts');
+const totalMinutesEl = document.getElementById('total-minutes');
+const weeklyWorkoutsEl = document.getElementById('weekly-workouts');
 
-const weeklyGoalInput = documents.getElementById('weekly-goal');
-const saveGoalBtn = documents.getElementById('save-goal-btn');
+const weeklyGoalInput = document.getElementById('weekly-goal');
+const saveGoalBtn = document.getElementById('save-goal-btn');
 
 // clearing forms & validations
 function clearFormErrors() {
@@ -93,4 +93,82 @@ function validateForm() {
     }
 
     return isValid;
+}
+
+// workout data
+function addWorkout(workout) {
+  workouts.push(workout);
+  renderWorkoutRow(workout);
+  updateStatsAndProgress();
+}
+
+function renderWorkoutRow(workout) {
+  const tr = document.createElement('tr');
+  tr.dataset.type = workout.type;
+
+  const dateTd = document.createElement('td');
+  dateTd.textContent = workout.date;
+
+  const typeTd = document.createElement('td');
+  typeTd.textContent = capitalize(workout.type);
+
+  const durationTd = document.createElement('td');
+  durationTd.textContent = workout.duration;
+
+  const intensityTd = document.createElement('td');
+  intensityTd.textContent = workout.intensity ? capitalize(workout.intensity) : '-';
+
+  const notesTd = document.createElement('td');
+  notesTd.textContent = workout.notes || '-';
+
+  const actionsTd = document.createElement('td');
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = 'Delete';
+  deleteBtn.className = 'delete-btn';
+  deleteBtn.addEventListener('click', () => {
+    removeWorkout(workout.id);
+  });
+  actionsTd.appendChild(deleteBtn);
+
+  tr.appendChild(dateTd);
+  tr.appendChild(typeTd);
+  tr.appendChild(durationTd);
+  tr.appendChild(intensityTd);
+  tr.appendChild(notesTd);
+  tr.appendChild(actionsTd);
+
+  historyBody.appendChild(tr);
+}
+
+function removeWorkout(id) {
+  workouts = workouts.filter(w => w.id !== id);
+  renderHistoryTable();
+  updateStatsAndProgress();
+}
+
+function renderHistoryTable() {
+  historyBody.innerHTML = '';
+  workouts.forEach(renderWorkoutRow);
+}
+
+function updateStatsAndProgress() {
+  const totalWorkouts = workouts.length;
+  const totalMinutes = workouts.reduce((sum, w) => sum + w.duration, 0);
+
+  totalWorkoutsEl.textContent = totalWorkouts;
+  totalMinutesEl.textContent = totalMinutes;
+
+  const today = new Date();
+  const weekStart = getWeekStart(today);
+  const weeklyCount = workouts.filter(w => new Date(w.date) >= weekStart).length;
+  weeklyWorkoutsEl.textContent = weeklyCount;
+
+  // Progress bar
+  let percent = 0;
+  if (weeklyGoal > 0) {
+    percent = Math.min(100, Math.round((weeklyCount / weeklyGoal) * 100));
+  }
+
+  progressBarInner.style.width = `${percent}%`;
+  progressText.textContent = `${percent}%`;
 }
