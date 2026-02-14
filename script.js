@@ -52,3 +52,44 @@ function isValidDate(value) {
     return inputDate <= today;
 }
 
+function getWeekStart(date) {
+    const d = new Date(date);
+    const day = d.getDay();
+    const weekStart = new Date(d.setDate(diff));
+    weekStart.setHours(0, 0, 0, 0);
+    return weekStart;
+}
+
+// form validation
+function validateForm() {
+    clearFormErrors();
+    let isValid = true;
+
+    if (!dateInput.value) {
+        dateError.textContent = 'Please select a date.';
+        isValid = false;
+    } else if (!isValidDate(dateInput.value)){
+        dateError.textContent = 'Date cannot be in the future.';
+        isValid = false;
+    }
+
+    if (!typeInput.value) {
+        typeError.textContent = 'Please choose a workout type.';
+        isValid = false;
+    }
+
+    const durationValue = Number(durationInput.value);
+    if (!durationInput.value) {
+        durationError.textContent = 'Please enter a duration.';
+        isValid = false;
+    } else if (Number.isNaN(durationValue) || durationValue <= 0) {
+        durationError.textContent = 'Duration must be a positive number.';
+        isValid = false;
+    }
+
+    if (!isValid) {
+        showFormMessage('Please fix the errors above and try again.', 'error');
+    }
+
+    return isValid;
+}
