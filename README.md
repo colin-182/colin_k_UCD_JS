@@ -66,3 +66,7 @@ The theme toggle button adds or removes a class on the <body>, switching between
 
 Deployed Site
 This site has been deployed to GitHub Pages at the URL below:
+https://colin-182.github.io/colin_k_UCD_JS/ 
+
+JUST FYI, ensure to type in a date, it's now a dropdown menu! Start of the week is Sunday as well! 
+Enjoy! 
