@@ -308,3 +308,64 @@ th {
 .them-toggle-btn:hover {
     border-color: var(--accent);
 }
+
+/* overall responsiveness */
+@media (max-width: 768px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  .main-nav {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .main-nav a {
+    margin-left: 0;
+    margin-right: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  main {
+    margin-top: 1.2rem;
+  }
+
+  .section {
+    padding: 1.4rem 1.1rem 1.5rem;
+  }
+
+  .section-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .progress-card {
+    grid-column: span 1;
+  }
+
+  table {
+    min-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo h1 {
+    font-size: 1rem;
+  }
+
+  .section h2 {
+    font-size: 1.1rem;
+  }
+
+  .theme-toggle-btn {
+    right: 0.8rem;
+    bottom: 0.9rem;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
