@@ -190,3 +190,72 @@ function applyFilter(filter) {
     }
   });
 }
+
+// THEME TOGGLE 
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+}
+
+
+// Smooth scroll to form from Home button
+if (getStartedBtn) {
+  getStartedBtn.addEventListener('click', () => {
+    const logSection = document.getElementById('log-workout');
+    if (logSection) {
+      logSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+}
+
+// Handle workout form submission
+if (workoutForm) {
+  workoutForm.addEventListener('submit', event => {
+    event.preventDefault();
+
+    if (!validateForm()) return;
+
+    const workout = {
+      id: Date.now(),
+      date: dateInput.value,
+      type: typeInput.value,
+      duration: Number(durationInput.value),
+      intensity: intensityInput.value,
+      notes: notesInput.value.trim()
+    };
+
+    addWorkout(workout);
+    workoutForm.reset();
+    clearFormErrors();
+    showFormMessage('Workout saved successfully!', 'success');
+  });
+}
+
+// Filter buttons
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filter = btn.dataset.filter;
+    setActiveFilterButton(btn);
+    applyFilter(filter);
+  });
+});
+
+// Save weekly goal
+if (saveGoalBtn) {
+  saveGoalBtn.addEventListener('click', () => {
+    const value = Number(weeklyGoalInput.value);
+    if (Number.isNaN(value) || value <= 0) {
+      alert('Weekly goal must be a positive number.');
+      return;
+    }
+    weeklyGoal = value;
+    updateStatsAndProgress();
+  });
+}
+
+// Theme toggle
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener('click', toggleTheme);
+}
+
+// INITIAL RENDER
+updateStatsAndProgress();
