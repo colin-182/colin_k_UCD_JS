@@ -19,7 +19,8 @@ const typeError = document.getElementById('type-error');
 const durationError = document.getElementById('duration-error');
 
 const historyBody = document.getElementById('history-body');
-const filterButtons = document.getElementById('.filter-btn');
+// FIX: was document.getElementById('.filter-btn'); need all by class:
+const filterButtons = document.querySelectorAll('.filter-btn');
 
 const totalWorkoutsEl = document.getElementById('total-workouts');
 const totalMinutesEl = document.getElementById('total-minutes');
@@ -27,6 +28,9 @@ const weeklyWorkoutsEl = document.getElementById('weekly-workouts');
 
 const weeklyGoalInput = document.getElementById('weekly-goal');
 const saveGoalBtn = document.getElementById('save-goal-btn');
+
+// Theme toggle element (was missing in original JS)
+const themeToggleBtn = document.getElementById('theme-toggle'); // FIX: added
 
 // clearing forms & validations
 function clearFormErrors() {
@@ -54,7 +58,7 @@ function isValidDate(value) {
 
 function getWeekStart(date) {
   const d = new Date(date);
-  const day = d.getDay();       
+  const day = d.getDay();        
   const diff = d.getDate() - day;
   const weekStart = new Date(d.setDate(diff));
   weekStart.setHours(0, 0, 0, 0);
@@ -169,8 +173,19 @@ function updateStatsAndProgress() {
     percent = Math.min(100, Math.round((weeklyCount / weeklyGoal) * 100));
   }
 
-  progressBarInner.style.width = `${percent}%`;
-  progressText.textContent = `${percent}%`;
+  const progressBarInner = document.getElementById('progress-bar-inner'); // FIX: get element
+  const progressText = document.getElementById('progress-text');         // FIX: get element
+
+  if (progressBarInner && progressText) {
+    progressBarInner.style.width = `${percent}%`;
+    progressText.textContent = `${percent}%`;
+  }
+}
+
+// helper for capitalizing type/intensity
+function capitalize(text) {
+  if (!text) return '';
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 // Filtering
@@ -195,7 +210,6 @@ function applyFilter(filter) {
 function toggleTheme() {
   document.body.classList.toggle('dark-theme');
 }
-
 
 // Smooth scroll to form from Home button
 if (getStartedBtn) {
